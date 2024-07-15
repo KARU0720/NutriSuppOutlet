@@ -54,28 +54,5 @@ async function addToCart(productId, availableStock) {
     }
 }
 
-// Function for direct checkout
-async function checkout(productId, currentStock) {
-    const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
-
-    if (quantity > currentStock) {
-        alert('Cannot checkout more than available stock');
-        return;
-    }
-
-    try {
-        const response = await axios.post('/checkout', { productId, quantity });
-        console.log('Checked out:', response.data);
-    } catch (error) {
-        console.error('Error checking out:', error);
-    }
-}
-
-// Function to add product to cart (example function, adjust as per your cart implementation)
-function addToCart(productId) {
-    // Implement your addToCart functionality here
-    alert(`Product added to cart with ID: ${productId}`);
-}
-
 // Display products when the page loads
 document.addEventListener('DOMContentLoaded', displayProducts);

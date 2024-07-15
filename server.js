@@ -42,7 +42,7 @@ app.get('/products', async (req, res) => {
         const products = await col.find({ stock: { $gt: 0 } }).toArray(); // Filter products with stock > 0
         res.status(200).json(products);
     } catch (err) {
-        console.error(err.stack);
+        console.error('Error fetching products:', err);
         res.status(500).json({ error: 'An error occurred' });
     } finally {
         await client.close();
@@ -107,41 +107,6 @@ app.put('/add-to-cart/:id', async (req, res) => {
     } catch (error) {
         console.error('Error adding to cart:', error);
         res.status(500).json({ success: false, message: 'An error occurred.' });
-    } finally {
-        await client.close();
-    }
-});
-
-// Checkout
-app.post('/checkout', async (req, res) => {
-    const { productId, quantity } = req.body;
-
-    const client = new MongoClient(url);
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        const col = db.collection('product');
-
-        const product = await col.findOne({ _id: new ObjectId(productId) });
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        if (quantity > product.stock) {
-            return res.status(400).json({ error: 'Cannot checkout more than available stock' });
-        }
-
-        // Update stock quantity
-        const newStock = product.stock - quantity;
-        await col.updateOne(
-            { _id: new ObjectId(productId) },
-            { $set: { stock: newStock } }
-        );
-
-        res.status(200).json({ message: `Checked out ${quantity} ${product.productName}(s)` });
-    } catch (err) {
-        console.error(err.stack);
-        res.status(500).json({ error: 'An error occurred' });
     } finally {
         await client.close();
     }
