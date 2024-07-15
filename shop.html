@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriSupp Outlet - Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-green-500 p-4 text-white">
+        <ul class="flex space-x-4">
+            <li><a href="index.html" class="hover:underline">Admin</a></li>
+            <li><a href="shop.html" class="hover:underline">Shop</a></li>
+            <li><a href="cart.html" class="hover:underline">Cart</a></li>
+            <li><a href="about.html" class="hover:underline">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded shadow">
+        <h1 class="text-2xl font-bold mb-6">Shop</h1>
+        <div id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Products will be dynamically displayed here -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="shop.js"></script>
+</body>
+</html>
